@@ -36,7 +36,7 @@ public class GameView {
     JLabel gold_amount = new JLabel();
     JLabel platinum_amount = new JLabel();
     JLabel cobalt_amount = new JLabel();
-    JLabel diamond_amount = new JLabel();
+    JLabel lithium_amount = new JLabel();
 
     JPanel furnace_panel = new JPanel();
     JLabel furnace_panel_background = new JLabel();
@@ -95,7 +95,7 @@ public class GameView {
         //gold
         //platinum
         //cobalt
-        //diamond
+        //lithium
 
         game_frame.add(mine_panel);
         game_frame.revalidate();
@@ -338,6 +338,8 @@ public class GameView {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Furnace furnace = player.getFurnace1();
+                selectRecipe(furnace);
+                
             }
         });
 
@@ -351,5 +353,28 @@ public class GameView {
 
 
         game_frame.add(furnace_panel);
+    }
+
+    private void selectRecipe(Furnace furnace) {
+        JFrame jframe = new JFrame();
+        JPanel jpanel = new JPanel();
+        JLabel jlabel = new JLabel();
+
+        JButton copper_bar = new JButton();
+        JButton tin_bar = new JButton();
+        JButton bronze_bar = new JButton();
+        
+        JLabel copper_bar_amount = new JLabel();
+        JLabel tin_bar_amount = new JLabel();
+        JLabel bronze_bar_amount = new JLabel();
+
+        jframe.setSize(500, 1000);
+        jpanel.setBounds(0, 0, 500, 1000);
+        jlabel.setIcon(new ImageIcon("Images/Furnaces/select_recipe_background.png"));
+        jpanel.add(jlabel);
+
+
+                
+        jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 }

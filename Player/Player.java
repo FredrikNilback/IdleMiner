@@ -18,7 +18,7 @@ public class Player {
     private GoldMine gold_mine;
     private PlatinumMine platinum_mine;
     private CobaltMine cobalt_mine;
-    private DiamondMine diamond_mine;
+    private LithiumMine lithium_mine;
 
     private int copper;
     private int tin;
@@ -31,7 +31,7 @@ public class Player {
     private int gold;
     private int platinum;
     private int cobalt; 
-    private int diamond;
+    private int lithium;
 
     private Furnace furnace1;
     private Furnace furnace2;
@@ -43,6 +43,16 @@ public class Player {
     private int copper_bar;
     private int tin_bar;
     private int bronze_bar;
+    private int iron_bar;
+    private int lead_bar;
+    private int steel_bar;
+    private int aluminium_bar;
+    private int silver_bar;
+    private int gold_bar;
+    private int platinum_bar;
+    private int cobalt_bar;
+    private int lithium_bar;
+
 
 
 
@@ -61,13 +71,13 @@ public class Player {
         this.gold = 0;
         this.platinum = 0;
         this.cobalt = 0;
-        this.diamond = 0;    
+        this.lithium = 0;    
     }
 
     public Player(String name, int money,
                   int copper, int tin, int coal, int iron, 
                   int lead, int aluminium, int silver, int sulphur, 
-                  int gold, int platinum, int cobalt, int diamond,
+                  int gold, int platinum, int cobalt, int lithium,
                   int copper_bar, int tin_bar, int bronze_bar) {
 
         this.name = name;
@@ -84,7 +94,7 @@ public class Player {
         this.gold = gold;
         this.platinum = platinum;
         this.cobalt = cobalt;
-        this.diamond = diamond;  
+        this.lithium = lithium;  
         
         this.copper_bar = copper_bar;
         this.tin_bar = tin_bar;
@@ -223,8 +233,8 @@ public class Player {
     public CobaltMine getCobalt_mine() {
         return cobalt_mine;
     }
-    public DiamondMine getDiamond_mine() {
-        return diamond_mine;
+    public LithiumMine getlithium_mine() {
+        return lithium_mine;
     }
 
     // getters for furnaces
