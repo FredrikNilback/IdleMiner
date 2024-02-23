@@ -53,8 +53,9 @@ public class CopperMine {
     private class CopperMiningTask extends TimerTask {
         @Override
         public void run() {
-            System.out.println("Copper mine produced " + produceResources() + " resources.");
-            player.updateRawResource(0, produceResources());
+            int produced = produceResources();
+            System.out.println("Copper mine produced " + produced + " resources.");
+            player.updateRawResource(0, produced);
         }
     }
 
@@ -82,6 +83,7 @@ public class CopperMine {
         if(level_up_condition <= this.invested_money) {
             levelUp(this.invested_money - level_up_condition);
             System.out.println("Copper mine level up! New level: " + this.level + "\nCurrent gold invested: " + this.invested_money);
+            checkLevelUp();
         }  
     }
 

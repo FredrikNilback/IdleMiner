@@ -1,5 +1,5 @@
 package Mines;
 
-public class DiamondMine {
+public class LithiumMine {
     
 }

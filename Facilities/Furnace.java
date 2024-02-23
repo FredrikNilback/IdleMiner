@@ -27,13 +27,26 @@ public class Furnace {
     public void decideTask(int output_enum) {
         this.output_enum = output_enum;
         switch (this.output_enum) {
-            case 1:  //copper bar
+            case 0:  //copper bar
                 this.cycle = 60;
+                smelt();
                 break;
-            case 2:  //tin bar
+            case 1:  //tin bar
                 this.cycle = 30;
-            case 3:  //bronze bar
+                smelt();
+                break;
+            case 2:  //bronze bar
                 this.cycle = 180;
+                smelt();
+                break;
+            case 3:  //iron bar
+                this.cycle = 270;
+                smelt();
+                break;
+            case 4:  //lead bar
+                this.cycle = 360;
+                smelt();
+                break;
             default:
                 break;
         }
@@ -42,42 +55,78 @@ public class Furnace {
 
 
     public void smelt() {
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new FurnaceSmeltTask(), 0, (this.cycle * 100000 / speed));
+        if(timer == null) {
+            timer = new Timer();
+            timer.scheduleAtFixedRate(new FurnaceSmeltTask(), (this.cycle * 100000 / speed), (this.cycle * 100000 / speed));
+        }
     }
 
     private class FurnaceSmeltTask extends TimerTask {
         @Override
         public void run() {
-            System.out.println("Furnace produced " + produceResources() + " resources.");
-            player.updateSmeltedResource(output_enum, produceResources());
+            String resources = "Copper bars.";
+            switch (output_enum) {
+                case 0:
+                    resources = "Copper bars.";
+                    break;
+                case 1: 
+                    resources = "Tin bars.";
+                    break;
+                case 2:
+                    resources = "Bronze bars.";
+                    break;
+                case 3: 
+                    resources = "Iron bars.";
+                    break;
+                case 4:
+                    resources = "Lead bars.";
+                    break;
+                case 5: 
+                    resources = "Steel bars.";
+                    break;
+                default:
+                    break;
+            }
+            int produced = produceResources();
+
+            System.out.println("Furnace produced " + produced + " " + resources);
+            player.updateSmeltedResource(output_enum, produced);
+            System.out.println("Copper ore left: " + player.getRawResource(0));
         }
     }
 
     private int produceResources() {
         switch (this.output_enum) {
-            case 1:
-                if(this.player.getRawResource(1) >= 100) {
-                    this.player.updateRawResource(1, -100);
+            case 0:  //copper bar
+                if(this.player.getRawResource(0) >= 100) {
+                    this.player.updateRawResource(0, -100);
                     return 1;  //add bonus resource logic here. 
                 }
                 else {
                     return 0;
                 }
                 
-            case 2: 
-                if(this.player.getRawResource(2) >= 100) {
-                    this.player.updateRawResource(2, -100);
+            case 1:  //tin bar
+                if(this.player.getRawResource(1) >= 100) {
+                    this.player.updateRawResource(1, -100);
                     return 1;  //add bonus resource logic here. 
                 }
                 else {
                     return 0;
                 } 
-            case 3: 
-                if(this.player.getSmeltedResource(1) >= 5 &&
-                   this.player.getSmeltedResource(2) >= 5) {
+            case 2:  //bronze bar
+                if(this.player.getSmeltedResource(0) >= 5 &&
+                   this.player.getSmeltedResource(1) >= 5) {
+                    this.player.updateSmeltedResource(0, -5);
                     this.player.updateSmeltedResource(1, -5);
-                    this.player.updateSmeltedResource(2, -5);
+                    return 1;  //add bonus resource logic here. 
+                }
+                else {
+                    return 0;
+                } 
+            case 3: //iron bar
+                if(this.player.getRawResource(3) >= 250) {
+                    this.player.updateRawResource(3, -250);
                     return 1;  //add bonus resource logic here. 
                 }
                 else {

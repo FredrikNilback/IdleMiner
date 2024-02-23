@@ -54,8 +54,6 @@ public class Player {
     private int lithium_bar;
 
 
-
-
     public Player(String name) {
         this.name = name;
         this.money = 1000 + 2500;
@@ -104,6 +102,7 @@ public class Player {
     public void purchaseMine(int mine_enum) {
         switch (mine_enum) {
             case 0:
+                System.out.println("Purchased Copper mine");
                 this.copper_mine = new CopperMine(this, 10, 10, 100, 1000);
                 updateMoney(-1000);
                 this.copper_mine.mine();
@@ -116,23 +115,35 @@ public class Player {
 
     public void purchaseFurnace(int furnace_enum) {
         switch (furnace_enum) {
-            case 1:
+            case 0:
+                System.out.println("Purchased Furnace");
                 this.furnace1 = new Furnace(this);
+                updateMoney(-10000);
+                break;
+            case 1:
+                System.out.println("Purchased Furnace");
+                this.furnace2 = new Furnace(this);
+                updateMoney(-50000);
                 break;
             case 2:
-                this.furnace2 = new Furnace(this);
+                System.out.println("Purchased Furnace");
+                this.furnace3 = new Furnace(this);
+                updateMoney(-250000);
                 break;
             case 3:
-                this.furnace3 = new Furnace(this);
+                System.out.println("Purchased Furnace");
+                this.furnace4 = new Furnace(this);
+                updateMoney(-1000000);
                 break;
             case 4:
-                this.furnace4 = new Furnace(this);
+                System.out.println("Purchased Furnace");
+                this.furnace5 = new Furnace(this);
+                updateMoney(-25000000);
                 break;
             case 5:
-                this.furnace5 = new Furnace(this);
-                break;
-            case 6:
+                System.out.println("Purchased Furnace");
                 this.furnace6 = new Furnace(this);
+                updateMoney(-500000000);
                 break;
             default:
                 break;
@@ -152,9 +163,30 @@ public class Player {
         switch (mine_enum) {
             case 0:
                 return this.copper;
-        
+            case 1:
+                return this.tin;
+            case 2:
+                return this.coal;
+            case 3:
+                return this.iron;
+            case 4:
+                return this.lead;
+            case 5:
+                return this.aluminium;
+            case 6:
+                return this.silver;
+            case 7:
+                return this.sulphur;
+            case 8: 
+                return this.gold;
+            case 9:
+                return this.platinum;
+            case 10:
+                return this.cobalt;
+            case 11:
+                return this.lithium;
             default:
-                return this.copper;
+                return 0;
         }
     }
     public void updateRawResource(int mine_enum, int change) {
@@ -162,7 +194,39 @@ public class Player {
             case 0:
                 this.copper += change;
                 break;
-        
+            case 1:
+                this.tin += change;
+                break;
+            case 2:
+                this.coal += change;
+                break;
+            case 3:
+                this.iron += change;
+                break;
+            case 4:
+                this.lead += change;
+                break;
+            case 5:
+                this.aluminium += change;
+                break;
+            case 6:
+                this.silver += change;
+                break;
+            case 7:
+                this.sulphur += change;
+                break;
+            case 8: 
+                this.gold += change;
+                break;
+            case 9:
+                this.platinum += change;
+                break;
+            case 10:
+                this.cobalt += change;
+                break;
+            case 11:
+                this.lithium += change;
+                break;
             default:
                 break;
         }
@@ -170,26 +234,26 @@ public class Player {
     
     public int getSmeltedResource(int smelt_enum) {
         switch (smelt_enum) {
-            case 1:
+            case 0:
                 return this.copper_bar;
-            case 2:
+            case 1:
                 return this.tin_bar;
-            case 3:
+            case 2:
                 return this.bronze_bar;
             default:
-                return this.copper_bar;
+                return 0;
                 
         }
     }
     public void updateSmeltedResource(int smelt_enum, int change) {
         switch (smelt_enum) {
-            case 1:
+            case 0:
                 this.copper_bar += change;
                 break;
-            case 2: 
+            case 1: 
                 this.tin_bar += change;
                 break;
-            case 3:
+            case 2:
                 this.bronze_bar += change;
                 break;
             default:
