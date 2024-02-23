@@ -869,7 +869,7 @@ public class GameView {
         });
         jpanel.add(lead_bar_select);
 
-        steel_bar_select.setBounds(57, 365, 68, 26);
+        steel_bar_select.setBounds(57, 450, 68, 26);
         steel_bar_select.setIcon(new ImageIcon("Images/Furnaces/select.png"));
         steel_bar_select.addActionListener(new ActionListener() {
             @Override
