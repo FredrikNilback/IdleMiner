@@ -13,4 +13,4 @@ The player decides when to purchase new mines and facilities, which raw resource
 In the latest version you can unlock both copper and tin mine (the latter does not currently have an image attached when unlocked), unlock all furnaces, and select any recipe. 
 With Copper and Tin available you can make copper bars, tin bars and bronze bars!
 
-much more to come in later updates
+Much more to come very soon!
