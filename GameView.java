@@ -23,6 +23,12 @@ public class GameView {
     JLabel copper_insufficient = new JLabel();
     JLabel copper_level = new JLabel();
 
+    JLabel tin_mine_image = new JLabel();
+    JButton tin_invest = new JButton();
+    JButton tin_unlock = new JButton();
+    JLabel tin_insufficient = new JLabel();
+    JLabel tin_level = new JLabel();
+
     JPanel raw_resource_panel = new JPanel();
     JLabel raw_resource_panel_background = new JLabel();
     JLabel copper_amount = new JLabel();    
@@ -106,7 +112,7 @@ public class GameView {
         mine_panel.add(mine_panel_background);
 
         makeCopperMinePanel();
-        //tin
+        makeTinMinePanel();
         //coal
         //iron
         //lead
@@ -187,6 +193,70 @@ public class GameView {
         mine_panel.add(copper_unlock);
     }
 
+    private void makeTinMinePanel() {
+        tin_mine_image.setIcon(new ImageIcon("Images/Mines/tin_mine_locked.png"));
+        tin_mine_image.setBounds(5, 90, 391, 82);
+        mine_panel.add(tin_mine_image);
+
+        tin_level.setBounds(120, 95, 50, 25);
+        try {
+            tin_level.setText("Lv. " + player.getTinMine().getLevel());
+
+        } catch (Exception e) {
+            tin_level.setText("Lv. 1");
+        }
+        
+
+
+        tin_insufficient.setIcon(new ImageIcon("Images/Mines/insufficient.png"));
+        tin_insufficient.setBounds(272, 120, 113, 35);
+        mine_panel.add(tin_insufficient);
+        mine_panel.setComponentZOrder(tin_insufficient, 0);
+        tin_insufficient.setVisible(false);
+        
+        tin_invest.setIcon(new ImageIcon("Images/Mines/invest.png"));
+        tin_invest.setBounds(318, 94, 68, 26);
+        tin_invest.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                invest_mine(0);
+            }
+        });
+
+        tin_unlock.setIcon(new ImageIcon("Images/Mines/unlock.png"));
+        tin_unlock.setBounds(139, 137, 123, 27);
+        tin_unlock.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(unlockMine(1)) {
+                    mine_panel.add(tin_invest);
+                    mine_panel.add(tin_level);
+                    tin_mine_image.setIcon(new ImageIcon("Images/Mines/tin_mine_lvl1.png"));
+                    mine_panel.remove(tin_unlock);
+                    player.purchaseMine(1);
+                } 
+                else {
+                    tin_insufficient.setVisible(true);
+                    mine_panel.revalidate();
+                    mine_panel.repaint();
+
+                    Timer timer = new Timer(2000, new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            tin_insufficient.setVisible(false);
+                            mine_panel.revalidate();
+                            mine_panel.repaint();
+                            ((Timer) e.getSource()).stop();
+                        }
+                    });
+                    timer.setRepeats(false); 
+                    timer.start(); 
+                }
+            }
+        });
+        mine_panel.add(tin_unlock);
+    }
+
     private void makeRawResourcePanel() {
         raw_resource_panel.setLayout(null);
         raw_resource_panel.setBounds(400, 10, 200, 1027);
@@ -209,8 +279,6 @@ public class GameView {
             }
         });
         timer.start();
-
-
 
         game_frame.add(raw_resource_panel);
     }
@@ -306,8 +374,31 @@ public class GameView {
 
     private boolean unlockMine(int mine_enum) {
         switch (mine_enum) {
-            case 0:
-                return (player.getMoney() >= 1000);
+            case 0:  //copper mine
+                return (player.getMoney() >= 1000); //1k
+            case 1:  //tin mine
+                return (player.getMoney() >= 2000); //2k
+            case 2:  //coal mine
+                return (player.getMoney() >= 5000); //5k
+            case 3:  //iron mine
+                return (player.getMoney() >= 10000); //10k
+            case 4:  //lead mine
+                return (player.getMoney() >= 25000); //25k
+            case 5:  //aluminium mine
+                return (player.getMoney() >= 75000); //75k
+            case 6:  //silver mine
+                return (player.getMoney() >= 200000); //200k
+            case 7:  //sulphur mine
+                return (player.getMoney() >= 750000); //750k
+            case 8:  //gold mine
+                return (player.getMoney() >= 2500000); //2.5m
+            case 9:  //platinum mine
+                return (player.getMoney() >= 5000000); //5m
+            case 10:  //cobalt mine
+                return (player.getMoney() >= 25000000); //25m
+            case 11:  //lithium mine
+                return (player.getMoney() >= 100000000); //100m
+            
             default:
                 return false;
         }
@@ -672,6 +763,12 @@ public class GameView {
         JButton iron_bar_select = new JButton();
         JButton lead_bar_select = new JButton();
         JButton steel_bar_select = new JButton();
+        JButton aluminium_bar_select = new JButton();
+        JButton silver_bar_select = new JButton();
+        JButton gold_bar_select = new JButton();
+        JButton platinum_bar_select = new JButton();
+        JButton cobalt_bar_select = new JButton();
+        JButton lithium_bar_select = new JButton();
         
         JLabel copper_bar_amount = new JLabel();
         JLabel tin_bar_amount = new JLabel();
@@ -679,14 +776,27 @@ public class GameView {
         JLabel iron_bar_amount = new JLabel();
         JLabel lead_bar_amount = new JLabel();
         JLabel steel_bar_amount = new JLabel();
+        JLabel aluminium_bar_amount = new JLabel();
+        JLabel silver_bar_amount = new JLabel();
+        JLabel gold_bar_amount = new JLabel();
+        JLabel platinum_bar_amount = new JLabel();
+        JLabel cobalt_bar_amount = new JLabel();
+        JLabel lithium_bar_amount = new JLabel();        
 
-        jframe.setSize(500, 1052);
+        jframe.setSize(500, 800);
         jframe.setLayout(null);
-        jpanel.setBounds(0, 0, 500, 1015);
+        jpanel.setPreferredSize(new Dimension(500, 1050));
         jpanel.setLayout(null);
         background.setBounds(0, 0, 500, 1015);
         background.setIcon(new ImageIcon("Images/Furnaces/select_recipe_background.png"));
         jpanel.add(background);
+
+        JScrollPane scrollPane = new JScrollPane(jpanel);
+        scrollPane.setBounds(0, 0, 500, 800);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollBar verticalScrollBar = scrollPane.getVerticalScrollBar();
+        verticalScrollBar.setUnitIncrement(16); 
 
 
         copper_bar_select.setBounds(57, 25, 68, 26);
@@ -698,9 +808,7 @@ public class GameView {
                 furnace.decideTask(0);
                 switch (furnace_enum) {
                     case 0:
-                        furnace1_output.setIcon(new ImageIcon("Images/Furnaces/copper_bar_out.png"));
-                        furnace_panel.repaint();
-                        furnace_panel.revalidate();  
+                        furnace1_output.setIcon(new ImageIcon("Images/Furnaces/copper_bar_out.png")); 
                         break;
                     case 1:
                         furnace2_output.setIcon(new ImageIcon("Images/Furnaces/copper_bar_out.png"));  
@@ -734,9 +842,7 @@ public class GameView {
                 furnace.decideTask(1);
                 switch (furnace_enum) {
                     case 0:
-                        furnace1_output.setIcon(new ImageIcon("Images/Furnaces/tin_bar_out.png"));
-                        furnace_panel.repaint();
-                        furnace_panel.revalidate();  
+                        furnace1_output.setIcon(new ImageIcon("Images/Furnaces/tin_bar_out.png")); 
                         break;
                     case 1:
                         furnace2_output.setIcon(new ImageIcon("Images/Furnaces/tin_bar_out.png"));  
@@ -770,9 +876,7 @@ public class GameView {
                 furnace.decideTask(2);
                 switch (furnace_enum) {
                     case 0:
-                        furnace1_output.setIcon(new ImageIcon("Images/Furnaces/bronze_bar_out.png"));
-                        furnace_panel.repaint();
-                        furnace_panel.revalidate();  
+                        furnace1_output.setIcon(new ImageIcon("Images/Furnaces/bronze_bar_out.png")); 
                         break;
                     case 1:
                         furnace2_output.setIcon(new ImageIcon("Images/Furnaces/bronze_bar_out.png"));  
@@ -806,9 +910,7 @@ public class GameView {
                 furnace.decideTask(3);
                 switch (furnace_enum) {
                     case 0:
-                        furnace1_output.setIcon(new ImageIcon("Images/Furnaces/iron_bar_out.png"));
-                        furnace_panel.repaint();
-                        furnace_panel.revalidate();  
+                        furnace1_output.setIcon(new ImageIcon("Images/Furnaces/iron_bar_out.png")); 
                         break;
                     case 1:
                         furnace2_output.setIcon(new ImageIcon("Images/Furnaces/iron_bar_out.png"));  
@@ -838,13 +940,11 @@ public class GameView {
         lead_bar_select.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("lead bar recipe selected!");
+                System.out.println("Lead bar recipe selected!");
                 furnace.decideTask(4);
                 switch (furnace_enum) {
                     case 0:
-                        furnace1_output.setIcon(new ImageIcon("Images/Furnaces/lead_bar_out.png"));
-                        furnace_panel.repaint();
-                        furnace_panel.revalidate();  
+                        furnace1_output.setIcon(new ImageIcon("Images/Furnaces/lead_bar_out.png"));  
                         break;
                     case 1:
                         furnace2_output.setIcon(new ImageIcon("Images/Furnaces/lead_bar_out.png"));  
@@ -874,13 +974,11 @@ public class GameView {
         steel_bar_select.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("steel bar recipe selected!");
+                System.out.println("Steel bar recipe selected!");
                 furnace.decideTask(5);
                 switch (furnace_enum) {
                     case 0:
-                        furnace1_output.setIcon(new ImageIcon("Images/Furnaces/steel_bar_out.png"));
-                        furnace_panel.repaint();
-                        furnace_panel.revalidate();  
+                        furnace1_output.setIcon(new ImageIcon("Images/Furnaces/steel_bar_out.png"));  
                         break;
                     case 1:
                         furnace2_output.setIcon(new ImageIcon("Images/Furnaces/steel_bar_out.png"));  
@@ -905,9 +1003,213 @@ public class GameView {
         });
         jpanel.add(steel_bar_select);
 
+        aluminium_bar_select.setBounds(57, 535, 68, 26);
+        aluminium_bar_select.setIcon(new ImageIcon("Images/Furnaces/select.png"));
+        aluminium_bar_select.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Aluminium bar recipe selected!");
+                furnace.decideTask(6);
+                switch (furnace_enum) {
+                    case 0:
+                        furnace1_output.setIcon(new ImageIcon("Images/Furnaces/aluminium_bar_out.png")); 
+                        break;
+                    case 1:
+                        furnace2_output.setIcon(new ImageIcon("Images/Furnaces/aluminium_bar_out.png"));  
+                        break;
+                    case 2:
+                        furnace3_output.setIcon(new ImageIcon("Images/Furnaces/aluminium_bar_out.png"));  
+                        break;
+                    case 3:
+                        furnace4_output.setIcon(new ImageIcon("Images/Furnaces/aluminium_bar_out.png"));  
+                        break;
+                    case 4:
+                        furnace5_output.setIcon(new ImageIcon("Images/Furnaces/aluminium_bar_out.png"));  
+                        break;
+                    case 5:
+                        furnace6_output.setIcon(new ImageIcon("Images/Furnaces/aluminium_bar_out.png"));  
+                        break;
+                    default:
+                        break;
+                }
+                jframe.dispose();
+            }
+        });
+        jpanel.add(aluminium_bar_select);
+
+        silver_bar_select.setBounds(57, 620, 68, 26);
+        silver_bar_select.setIcon(new ImageIcon("Images/Furnaces/select.png"));
+        silver_bar_select.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Silver bar recipe selected!");
+                furnace.decideTask(7);
+                switch (furnace_enum) {
+                    case 0:
+                        furnace1_output.setIcon(new ImageIcon("Images/Furnaces/silver_bar_out.png")); 
+                        break;
+                    case 1:
+                        furnace2_output.setIcon(new ImageIcon("Images/Furnaces/silver_bar_out.png"));  
+                        break;
+                    case 2:
+                        furnace3_output.setIcon(new ImageIcon("Images/Furnaces/silver_bar_out.png"));  
+                        break;
+                    case 3:
+                        furnace4_output.setIcon(new ImageIcon("Images/Furnaces/silver_bar_out.png"));  
+                        break;
+                    case 4:
+                        furnace5_output.setIcon(new ImageIcon("Images/Furnaces/silver_bar_out.png"));  
+                        break;
+                    case 5:
+                        furnace6_output.setIcon(new ImageIcon("Images/Furnaces/silver_bar_out.png"));  
+                        break;
+                    default:
+                        break;
+                }
+                jframe.dispose();
+            }
+        });
+        jpanel.add(silver_bar_select);
+
+        gold_bar_select.setBounds(57, 705, 68, 26);
+        gold_bar_select.setIcon(new ImageIcon("Images/Furnaces/select.png"));
+        gold_bar_select.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Gold bar recipe selected!");
+                furnace.decideTask(8);
+                switch (furnace_enum) {
+                    case 0:
+                        furnace1_output.setIcon(new ImageIcon("Images/Furnaces/gold_bar_out.png")); 
+                        break;
+                    case 1:
+                        furnace2_output.setIcon(new ImageIcon("Images/Furnaces/gold_bar_out.png"));  
+                        break;
+                    case 2:
+                        furnace3_output.setIcon(new ImageIcon("Images/Furnaces/gold_bar_out.png"));  
+                        break;
+                    case 3:
+                        furnace4_output.setIcon(new ImageIcon("Images/Furnaces/gold_bar_out.png"));  
+                        break;
+                    case 4:
+                        furnace5_output.setIcon(new ImageIcon("Images/Furnaces/gold_bar_out.png"));  
+                        break;
+                    case 5:
+                        furnace6_output.setIcon(new ImageIcon("Images/Furnaces/gold_bar_out.png"));  
+                        break;
+                    default:
+                        break;
+                }
+                jframe.dispose();
+            }
+        });
+        jpanel.add(gold_bar_select);
+
+        platinum_bar_select.setBounds(57, 790, 68, 26);
+        platinum_bar_select.setIcon(new ImageIcon("Images/Furnaces/select.png"));
+        platinum_bar_select.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Platinum bar recipe selected!");
+                furnace.decideTask(9);
+                switch (furnace_enum) {
+                    case 0:
+                        furnace1_output.setIcon(new ImageIcon("Images/Furnaces/platinum_bar_out.png")); 
+                        break;
+                    case 1:
+                        furnace2_output.setIcon(new ImageIcon("Images/Furnaces/platinum_bar_out.png"));  
+                        break;
+                    case 2:
+                        furnace3_output.setIcon(new ImageIcon("Images/Furnaces/platinum_bar_out.png"));  
+                        break;
+                    case 3:
+                        furnace4_output.setIcon(new ImageIcon("Images/Furnaces/platinum_bar_out.png"));  
+                        break;
+                    case 4:
+                        furnace5_output.setIcon(new ImageIcon("Images/Furnaces/platinum_bar_out.png"));  
+                        break;
+                    case 5:
+                        furnace6_output.setIcon(new ImageIcon("Images/Furnaces/platinum_bar_out.png"));  
+                        break;
+                    default:
+                        break;
+                }
+                jframe.dispose();
+            }
+        });
+        jpanel.add(platinum_bar_select);
+
+        cobalt_bar_select.setBounds(57, 875, 68, 26);
+        cobalt_bar_select.setIcon(new ImageIcon("Images/Furnaces/select.png"));
+        cobalt_bar_select.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Cobalt bar recipe selected!");
+                furnace.decideTask(10);
+                switch (furnace_enum) {
+                    case 0:
+                        furnace1_output.setIcon(new ImageIcon("Images/Furnaces/cobalt_bar_out.png")); 
+                        break;
+                    case 1:
+                        furnace2_output.setIcon(new ImageIcon("Images/Furnaces/cobalt_bar_out.png"));  
+                        break;
+                    case 2:
+                        furnace3_output.setIcon(new ImageIcon("Images/Furnaces/cobalt_bar_out.png"));  
+                        break;
+                    case 3:
+                        furnace4_output.setIcon(new ImageIcon("Images/Furnaces/cobalt_bar_out.png"));  
+                        break;
+                    case 4:
+                        furnace5_output.setIcon(new ImageIcon("Images/Furnaces/cobalt_bar_out.png"));  
+                        break;
+                    case 5:
+                        furnace6_output.setIcon(new ImageIcon("Images/Furnaces/cobalt_bar_out.png"));  
+                        break;
+                    default:
+                        break;
+                }
+                jframe.dispose();
+            }
+        });
+        jpanel.add(cobalt_bar_select);
+
+        lithium_bar_select.setBounds(57, 960, 68, 26);
+        lithium_bar_select.setIcon(new ImageIcon("Images/Furnaces/select.png"));
+        lithium_bar_select.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Lithium bar recipe selected!");
+                furnace.decideTask(10);
+                switch (furnace_enum) {
+                    case 0:
+                        furnace1_output.setIcon(new ImageIcon("Images/Furnaces/lithium_bar_out.png")); 
+                        break;
+                    case 1:
+                        furnace2_output.setIcon(new ImageIcon("Images/Furnaces/lithium_bar_out.png"));  
+                        break;
+                    case 2:
+                        furnace3_output.setIcon(new ImageIcon("Images/Furnaces/lithium_bar_out.png"));  
+                        break;
+                    case 3:
+                        furnace4_output.setIcon(new ImageIcon("Images/Furnaces/lithium_bar_out.png"));  
+                        break;
+                    case 4:
+                        furnace5_output.setIcon(new ImageIcon("Images/Furnaces/lithium_bar_out.png"));  
+                        break;
+                    case 5:
+                        furnace6_output.setIcon(new ImageIcon("Images/Furnaces/lithium_bar_out.png"));  
+                        break;
+                    default:
+                        break;
+                }
+                jframe.dispose();
+            }
+        });
+        jpanel.add(lithium_bar_select);
 
 
-        jframe.add(jpanel);
+
+        jframe.add(scrollPane);
         jframe.setVisible(true);  
         jframe.setResizable(false);      
         jframe.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

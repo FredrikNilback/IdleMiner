@@ -107,7 +107,72 @@ public class Player {
                 updateMoney(-1000);
                 this.copper_mine.mine();
                 break;
-        
+            case 1:
+                System.out.println("Purchased Tin mine");
+                this.tin_mine = new TinMine(this, 10, 10, 150, 2000);
+                updateMoney(-2000);
+                this.tin_mine.mine();
+                break;
+            case 2:
+                System.out.println("Purchased Coal mine");
+                this.coal_mine = new CoalMine(this, 25, 15, 500, 5000);
+                updateMoney(-5000);
+                this.tin_mine.mine();
+                break;
+            case 3:
+                System.out.println("Purchased Iron mine");
+                this.iron_mine = new IronMine(this, 30, 15, 1500, 10000);
+                updateMoney(-10000);
+                this.iron_mine.mine();
+                break;
+            case 4:
+                System.out.println("Purchased Lead mine");
+                this.lead_mine = new LeadMine(this, 45, 10, 3000, 25000);
+                updateMoney(-75000);
+                this.lead_mine.mine();
+                break;
+            case 5:
+                System.out.println("Purchased Aluminium mine");
+                this.aluminium_mine = new AluminiumMine(this, 25, 10, 7000, 75000);
+                updateMoney(-75000);
+                this.aluminium_mine.mine();
+                break;
+            case 6:
+                System.out.println("Purchased Silver mine");
+                this.silver_mine = new SilverMine(this, 55, 25, 15000, 200000);
+                updateMoney(-200000);
+                this.silver_mine.mine();
+                break;
+            case 7:
+                System.out.println("Purchased Sulphur mine");
+                this.sulphur_mine = new SulphurMine(this, 120, 35, 20000, 750000);
+                updateMoney(-750000);
+                this.sulphur_mine.mine();
+                break;
+            case 8:
+                System.out.println("Purchased Gold mine");
+                this.gold_mine = new GoldMine(this, 150, 10, 30000, 2500000);
+                updateMoney(-2500000);
+                this.gold_mine.mine();
+                break;
+            case 9:
+                System.out.println("Purchased Platinum mine");
+                this.platinum_mine = new PlatinumMine(this, 300, 10, 50000, 5000000);
+                updateMoney(-5000000);
+                this.platinum_mine.mine();
+                break;
+            case 10:
+                System.out.println("Purchased Cobalt mine");
+                this.cobalt_mine = new CobaltMine(this, 600, 15, 100000, 25000000);
+                updateMoney(-25000000);
+                this.cobalt_mine.mine();
+                break;
+            case 11:
+                System.out.println("Purchased Lithium mine");
+                this.lithium_mine = new LithiumMine(this, 60, 10, 250000, 100000000);
+                updateMoney(-100000000);
+                this.lithium_mine.mine();
+                break;
             default:
                 break;
         }
@@ -240,6 +305,24 @@ public class Player {
                 return this.tin_bar;
             case 2:
                 return this.bronze_bar;
+            case 3: 
+                return this.iron_bar;
+            case 4:
+                return this.lead_bar;
+            case 5:
+                return this.steel_bar;
+            case 6:     
+                return this.aluminium_bar;
+            case 7:
+                return this.silver_bar;
+            case 8:
+                return this.gold_bar;
+            case 9: 
+                return this.platinum_bar;
+            case 10:
+                return this.cobalt_bar;
+            case 11:
+                return this.lithium_bar;   
             default:
                 return 0;
                 
@@ -256,6 +339,33 @@ public class Player {
             case 2:
                 this.bronze_bar += change;
                 break;
+            case 3: 
+                this.iron_bar += change;    
+                break;
+            case 4: 
+                this.lead_bar += change;
+                break;
+            case 5: 
+                this.steel_bar += change;
+                break;
+            case 6:
+                this.aluminium_bar += change;
+                break;
+            case 7:
+                this.silver_bar += change;
+                break;
+            case 8:
+                this.gold_bar += change;
+                break;
+            case 9:
+                this.platinum_bar += change;
+                break;
+            case 10:
+                this.cobalt_bar += change;
+                break;
+            case 11:
+                this.lithium_bar += change;
+                break;                
             default:
                 break;
         }
@@ -267,37 +377,37 @@ public class Player {
     public CopperMine getCopperMine() {
         return this.copper_mine;
     }
-    public TinMine getTin_mine() {
+    public TinMine getTinMine() {
         return tin_mine;
     }
-    public CoalMine getCoal_mine() {
+    public CoalMine getCoalMine() {
         return coal_mine;
     }
-    public IronMine getIron_mine() {
+    public IronMine getIronMine() {
         return iron_mine;
     }
-    public LeadMine getLead_mine() {
+    public LeadMine getLeadMine() {
         return lead_mine;
     }
-    public AluminiumMine getAluminium_mine() {
+    public AluminiumMine getAluminiumMine() {
         return aluminium_mine;
     }
-    public SilverMine getSilver_mine() {
+    public SilverMine getSilverMine() {
         return silver_mine;
     }
-    public SulphurMine getSulphur_mine() {
+    public SulphurMine getSulphurMine() {
         return sulphur_mine;
     }
-    public GoldMine getGold_mine() {
+    public GoldMine getGoldMine() {
         return gold_mine;
     }
-    public PlatinumMine getPlatinum_mine() {
+    public PlatinumMine getPlatinumMine() {
         return platinum_mine;
     }
-    public CobaltMine getCobalt_mine() {
+    public CobaltMine getCobaltMine() {
         return cobalt_mine;
     }
-    public LithiumMine getlithium_mine() {
+    public LithiumMine getlithiumMine() {
         return lithium_mine;
     }
 
@@ -320,7 +430,5 @@ public class Player {
     public Furnace getFurnace6() {
         return furnace6;
     }
-
-
 
 }

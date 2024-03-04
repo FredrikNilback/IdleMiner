@@ -3,7 +3,6 @@ package Mines;
 import java.util.Timer;
 import java.util.TimerTask;
 import Player.Player;
-//import java.lang.Math;
 
 public class CopperMine {
     private Timer timer;

@@ -44,6 +44,34 @@ public class Furnace {
                 smelt();
                 break;
             case 4:  //lead bar
+                this.cycle = 300;
+                smelt();
+                break;
+            case 5:  //steel bar
+                this.cycle = 360;
+                smelt();
+                break;
+            case 6:  //aluminium bar
+                this.cycle = 150;
+                smelt();
+                break;
+            case 7:  //silver bar
+                this.cycle = 360;
+                smelt();
+                break;
+            case 8:  //gold bar
+                this.cycle = 480;
+                smelt();
+                break;
+            case 9:  //platinum bar
+                this.cycle = 570;
+                smelt();
+                break;
+            case 10:  //cobalt bar
+                this.cycle = 720;
+                smelt();
+                break;
+            case 11:  //lithium bar
                 this.cycle = 360;
                 smelt();
                 break;
@@ -52,13 +80,9 @@ public class Furnace {
         }
     }
 
-
-
     public void smelt() {
-        if(timer == null) {
-            timer = new Timer();
-            timer.scheduleAtFixedRate(new FurnaceSmeltTask(), (this.cycle * 100000 / speed), (this.cycle * 100000 / speed));
-        }
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new FurnaceSmeltTask(), (this.cycle * 100000 / speed), (this.cycle * 100000 / speed));
     }
 
     private class FurnaceSmeltTask extends TimerTask {
@@ -83,6 +107,24 @@ public class Furnace {
                     break;
                 case 5: 
                     resources = "Steel bars.";
+                    break;
+                case 6: 
+                    resources = "Aluminium bars.";
+                    break;
+                case 7: 
+                    resources = "Silver bars.";
+                    break;
+                case 8: 
+                    resources = "Gold bars.";
+                    break;
+                case 9: 
+                    resources = "Platinum bars.";
+                    break;
+                case 10: 
+                    resources = "Cobalt bars.";
+                    break;
+                case 11: 
+                    resources = "Lithium bars.";
                     break;
                 default:
                     break;
@@ -124,7 +166,7 @@ public class Furnace {
                 else {
                     return 0;
                 } 
-            case 3: //iron bar
+            case 3:  //iron bar
                 if(this.player.getRawResource(3) >= 250) {
                     this.player.updateRawResource(3, -250);
                     return 1;  //add bonus resource logic here. 
@@ -132,12 +174,75 @@ public class Furnace {
                 else {
                     return 0;
                 } 
+            case 4:  //lead bar
+                if(this.player.getRawResource(4) >= 250) {
+                    this.player.updateRawResource(4, -250);
+                    return 1;  //add bonus resource logic here. 
+                }
+                else {
+                    return 0;
+                } 
+            case 5:  //steel bar
+                if(this.player.getRawResource(3) >= 500 &&
+                   this.player.getRawResource(2) >= 250) {
+                    this.player.updateRawResource(3, -500);
+                    this.player.updateRawResource(2, -250);
+                    return 1;  //add bonus resource logic here. 
+                }
+                else {
+                    return 0;
+                } 
+            case 6:  //aluminium bar
+                if(this.player.getRawResource(5) >= 500) {
+                    this.player.updateRawResource(5, -500);
+                    return 1;  //add bonus resource logic here. 
+                }
+                else {
+                    return 0;
+                } 
+            case 7:  //silver bar
+                if(this.player.getRawResource(6) >= 500) {
+                    this.player.updateRawResource(6, -500);
+                    return 1;  //add bonus resource logic here. 
+                }
+                else {
+                    return 0;
+                } 
+            case 8:  //gold bar
+                if(this.player.getRawResource(8) >= 1000) {
+                    this.player.updateRawResource(8, -1000);
+                    return 1;  //add bonus resource logic here. 
+                }
+                else {
+                    return 0;
+                } 
+            case 9:  //platinum bar
+                if(this.player.getRawResource(9) >= 1500) {
+                    this.player.updateRawResource(9, -1500);
+                    return 1;  //add bonus resource logic here. 
+                }
+                else {
+                    return 0;
+                } 
+            case 10:  //cobalt bar
+                if(this.player.getRawResource(10) >= 2500) {
+                    this.player.updateRawResource(10, -2500);
+                    return 1;  //add bonus resource logic here. 
+                }
+                else {
+                    return 0;
+                } 
+            case 11:  //lithium bar
+                if(this.player.getRawResource(11) >= 1000) {
+                    this.player.updateRawResource(11, -1000);
+                    return 1;  //add bonus resource logic here. 
+                }
+                else {
+                    return 0;
+                } 
             default:
                 return 0;
-        }
-
-        
-    }
-
+        } 
+    }  
     
 }
