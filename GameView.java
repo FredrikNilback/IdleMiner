@@ -219,7 +219,7 @@ public class GameView {
         tin_invest.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                invest_mine(0);
+                invest_mine(1);
             }
         });
 
